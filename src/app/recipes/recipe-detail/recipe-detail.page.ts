@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesService } from '../recipes.service';
 import { IRecipe } from '../recipe.model';
@@ -9,7 +9,7 @@ import { AlertController, Platform } from '@ionic/angular';
   templateUrl: './recipe-detail.page.html',
   styleUrls: ['./recipe-detail.page.scss'],
 })
-export class RecipeDetailPage implements OnInit {
+export class RecipeDetailPage implements OnInit, OnDestroy {
   loadedRecipe!: IRecipe;
   isIOS: boolean = false;
 
@@ -40,6 +40,10 @@ export class RecipeDetailPage implements OnInit {
     });
 
     this.isIOS = this.platform.is('ios');
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy', 'Recipe Item');
   }
 
   async onDeleteRecipe() {
